@@ -14,10 +14,12 @@ class CardModel {
     func getCards() -> [Card] {
         // Declare an empty array
         var generateCards = [Card]()
+        
         // Declare a list that keeps track of existing card numbers
         var cardNumbers = [Int]()
+        
         // Randomly generate 8 pairs of cards
-        for _ in 1...8 {
+        while (generateCards.count < 16) {
             let randomNumber = Int.random(in: 1...13)
             
             if !cardNumbers.contains(randomNumber) {
@@ -30,8 +32,10 @@ class CardModel {
                 cardTwo.imageName = "card\(randomNumber)"
                 
                 generateCards += [cardOne, cardTwo]
+                print(randomNumber)
             }
         }
+        
         // Randomize the cards within the array
         generateCards.shuffle()
         
