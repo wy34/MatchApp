@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D8E3A5E2431174A00C73138 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E3A5D2431174A00C73138 /* CardModel.swift */; };
+		3D8E3A612431197000C73138 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E3A602431197000C73138 /* Card.swift */; };
 		3D9E63662430500500F1946F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9E63652430500500F1946F /* AppDelegate.swift */; };
 		3D9E63682430500500F1946F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9E63672430500500F1946F /* SceneDelegate.swift */; };
 		3D9E636A2430500500F1946F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9E63692430500500F1946F /* ViewController.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D8E3A5D2431174A00C73138 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		3D8E3A602431197000C73138 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		3D9E63622430500500F1946F /* MatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D9E63652430500500F1946F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D9E63672430500500F1946F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +41,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D8E3A5F2431175200C73138 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3D8E3A602431197000C73138 /* Card.swift */,
+				3D8E3A5D2431174A00C73138 /* CardModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3D9E63592430500500F1946F = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +71,7 @@
 			children = (
 				3D9E63652430500500F1946F /* AppDelegate.swift */,
 				3D9E63672430500500F1946F /* SceneDelegate.swift */,
+				3D8E3A5F2431175200C73138 /* Model */,
 				3D9E63692430500500F1946F /* ViewController.swift */,
 				3D9E636B2430500500F1946F /* Main.storyboard */,
 				3D9E636E2430500D00F1946F /* Assets.xcassets */,
@@ -139,7 +153,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D9E636A2430500500F1946F /* ViewController.swift in Sources */,
+				3D8E3A5E2431174A00C73138 /* CardModel.swift in Sources */,
 				3D9E63662430500500F1946F /* AppDelegate.swift in Sources */,
+				3D8E3A612431197000C73138 /* Card.swift in Sources */,
 				3D9E63682430500500F1946F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
