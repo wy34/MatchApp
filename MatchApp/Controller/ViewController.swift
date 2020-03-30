@@ -11,23 +11,43 @@ import UIKit
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
-
+    @IBOutlet weak var timerLabel: UILabel!
     let model = CardModel()
     var cardsArray: [Card]!
-    
     var firstFlippedCardIndex: IndexPath?
+    
+    var timer: Timer?
+    var milliseconds: Int = 10 * 1000
     
     override func viewDidLoad() {
         super.viewDidLoad()
         cardsArray = model.getCards()
         collectionView.dataSource = self
         collectionView.delegate = self
+        timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer!, forMode: .common)
+    }
+    
+    // MARK: - Timer Methods
+    @objc func timerFired() {
+        milliseconds -= 1
+        
+        let seconds: Double = Double(milliseconds) / 1000.0
+        timerLabel.text = String(format: "Time Remaining: %.2f", seconds)
+        
+        if milliseconds == 0 {
+            timer?.invalidate()
+            timerLabel.textColor = UIColor.red
+            
+            checkForGameEnd()
+        }
     }
 
     // MARK: - CollectionView Delegate Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cardsArray.count
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // creates cell matching the prototype and casting it as a custom cell
@@ -82,6 +102,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             cardOneCell?.remove()
             cardTwoCell?.remove()
+            
+            checkForGameEnd()
         } else {
             // not a match
             // flip them back over
@@ -93,6 +115,40 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         // reset the firstFlippedCardIndex property
         firstFlippedCardIndex = nil
+    }
+    
+    
+    func checkForGameEnd() {
+        // check if any card is unmatched
+        // assume the user has won, loop through all the cards to seeif all of the cards are matched
+        var hasWon = true
+        
+        for card in cardsArray {
+            if !card.isMatched {
+                hasWon = false
+                break
+            }
+        }
+            
+        if hasWon {
+            showAlert(title: "Congratulations!", message: "You've won the game")
+        } else {
+            if milliseconds <= 0 {
+                showAlert(title: "Time's Up", message: "Sorry, better luck next time!")
+            }
+        }
+    }
+    
+    
+    func showAlert(title: String, message: String) {
+        // create an alert popup
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        // create an ok button to dismiss the alert popup
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        // add the ok button to the alert popup
+        alert.addAction(okAction)
+        // show the alert
+        present(alert, animated: true, completion: nil)
     }
 }
 

@@ -11,19 +11,15 @@ import UIKit
 class CardCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var frontImageView: UIImageView!
-    
     @IBOutlet weak var backImageView: UIImageView!
-    
     var card: Card?
     
     
     func configureCell(card: Card) {
-        
         // keep track of the card this cell represents
         self.card = card
         // set the front image view to the image that represents the card
         frontImageView.image = UIImage(named: card.imageName)
-        
         
         if card.isMatched == true {
             backImageView.alpha = 0
@@ -42,13 +38,16 @@ class CardCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    
+    
     func flipUp(speed: TimeInterval = 0.3) {
         // flip up animation
         UIView.transition(from: backImageView, to: frontImageView, duration: speed, options: [.showHideTransitionViews, .transitionFlipFromLeft], completion: nil)
-        
         // set status of card
         card?.isFlipped = true
     }
+    
+    
     
     func flipDown(speed: TimeInterval = 0.3, delay: TimeInterval = 0.5) {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
@@ -56,6 +55,8 @@ class CardCollectionViewCell: UICollectionViewCell {
         }
         card?.isFlipped = false
     }
+    
+    
     
     func remove() {
         backImageView.alpha = 0
