@@ -12,16 +12,17 @@ import Foundation
 class CardModel {
     
     func getCards() -> [Card] {
-        // Declare an empty array
+        // Declare an empty array to hold generated cards
         var generateCards = [Card]()
         
-        // Declare a list that keeps track of existing card numbers
+        // Declare an array that keeps track of existing card numbers
         var cardNumbers = [Int]()
         
         // Randomly generate 8 pairs of cards
         while (generateCards.count < 16) {
             let randomNumber = Int.random(in: 1...13)
             
+            // checks to make sure that the random card number is not already created
             if !cardNumbers.contains(randomNumber) {
                 cardNumbers.append(randomNumber)
                 

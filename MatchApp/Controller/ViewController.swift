@@ -28,8 +28,24 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath)
+        // creates cell matching the prototype and casting it as a custom cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCollectionViewCell
+        
+        // set that cell's front image with the card image belonging to card with the same index as the cell
+        cell.configureCell(card: cardsArray[indexPath.row])
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // get a referece to the cell that  was tapped
+        if let cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell {
+            if cell.card?.isFlipped == false {
+                cell.flipUp()
+            } else {
+                cell.flipDown()
+            }
+        }
     }
 }
 
