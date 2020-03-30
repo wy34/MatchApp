@@ -17,7 +17,7 @@ class CardModel {
         // Declare an array that keeps track of existing card numbers
         var cardNumbers = [Int]()
         // Randomly generate 8 pairs of cards
-        while (generateCards.count < 16) {
+        while (cardNumbers.count < 8) {
             let randomNumber = Int.random(in: 1...13)
             // checks to make sure that the random card number is not already created
             if !cardNumbers.contains(randomNumber) {
