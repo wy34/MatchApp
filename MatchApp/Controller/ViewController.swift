@@ -16,9 +16,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var cardsArray: [Card]!
     var firstFlippedCardIndex: IndexPath?
     var soundPlayer = SoundManager()
-    
     var timer: Timer?
-    var milliseconds: Int = 40 * 1000
+    var milliseconds: Int = 30 * 1000
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +44,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if milliseconds == 0 {
             timer?.invalidate()
             timerLabel.textColor = UIColor.red
-            
             checkForGameEnd()
+        } else {
+            timerLabel.textColor = UIColor.black
         }
     }
 
@@ -152,6 +152,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
         if hasWon {
             showAlert(title: "Congratulations!", message: "You've won the game")
+            timer?.invalidate()
         } else {
             if milliseconds <= 0 {
                 showAlert(title: "Time's Up", message: "Sorry, better luck next time!")
@@ -164,11 +165,28 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // create an alert popup
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         // create an ok button to dismiss the alert popup
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let okAction = UIAlertAction(title: "Play Again", style: .default, handler: playAgain)
         // add the ok button to the alert popup
         alert.addAction(okAction)
         // show the alert
         present(alert, animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    func playAgain(alertAction: UIAlertAction) {
+        // generate new set of cards in order to reset all the status properties as well as new deck
+        cardsArray = model.getCards()
+        // reset the index to avoid carry over match from previous game if for some reason only one card was selected from that game
+        firstFlippedCardIndex = nil
+        // reload the collection view -> scolls back to top, calls the default methods
+        collectionView.reloadData()
+        
+        // reset the  timer
+        milliseconds = 30 * 1000
+        timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer!, forMode: .common)
     }
 }
 
